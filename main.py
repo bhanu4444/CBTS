@@ -236,24 +236,38 @@ def main_worker(gpu, ngpus_per_node, args):
         normalize
     ])
 
-    val_dataset = INaturalist(
-        root=args.data,
-        txt=txt_val,
-        transform=val_transform, train=False,
-    ) if args.dataset == 'inat' else ImageNetLT(
-        root=args.data,
-        txt=txt_val,
-        transform=val_transform, train=False)
+    # val_dataset = INaturalist(
+    #     root=args.data,
+    #     txt=txt_val,
+    #     transform=val_transform, train=False,
+    # ) if args.dataset == 'inat' else ImageNetLT(
+    #     root=args.data,
+    #     txt=txt_val,
+    #     transform=val_transform, train=False)
 
-    train_dataset = INaturalist(
-        root=args.data,
-        txt=txt_train,
-        transform=transform_train
-    ) if args.dataset == 'inat' else ImageNetLT(
-        root=args.data,
-        txt=txt_train,
-        transform=transform_train)
+    # train_dataset = INaturalist(
+    #     root=args.data,
+    #     txt=txt_train,
+    #     transform=transform_train
+    # ) if args.dataset == 'inat' else ImageNetLT(
+    #     root=args.data,
+    #     txt=txt_train,
+    #     transform=transform_train)
 
+    train_dataset = InsectDataset(
+      root=args.data,
+      txt=os.path.join(args.data, "train.txt"),
+      transform=transform_train,
+      train=True
+    )
+
+    val_dataset = InsectDataset(
+        root=args.data,
+        txt=os.path.join(args.data, "val.txt"),
+        transform=val_transform,
+        train=False
+    )
+  
     cls_num_list = train_dataset.cls_num_list
     args.cls_num = len(cls_num_list)
 
