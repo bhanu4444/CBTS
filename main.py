@@ -8,8 +8,9 @@ from loss.contrastive import BalSCL
 from loss.logitadjust import LogitAdjust
 import math
 from tensorboardX import SummaryWriter
-from dataset.inat import INaturalist
-from dataset.imagenet import ImageNetLT
+
+from dataset.insect import InsectDataset
+
 # from models import resnet_big, resnext
 from models import resnext
 
